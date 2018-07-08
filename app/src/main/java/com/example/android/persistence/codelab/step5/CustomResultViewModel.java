@@ -59,8 +59,7 @@ public class CustomResultViewModel extends AndroidViewModel {
 
     private void subscribeToDbChanges() {
         // TODO: Modify this query to show only recent loans from specific user
-        LiveData<List<LoanWithUserAndBook>> loans
-                = mDb.loanModel().findAllWithUserAndBook();
+        LiveData<List<LoanWithUserAndBook>> loans = mDb.loanModel().findLoansByNameAfter("Mike", getYesterdayDate());
 
         // Instead of exposing the list of Loans, we can apply a transformation and expose Strings.
         mLoansResult = Transformations.map(loans,
@@ -81,7 +80,7 @@ public class CustomResultViewModel extends AndroidViewModel {
         });
     }
 
-    @SuppressWarnings("unused")
+
     private Date getYesterdayDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -1);
