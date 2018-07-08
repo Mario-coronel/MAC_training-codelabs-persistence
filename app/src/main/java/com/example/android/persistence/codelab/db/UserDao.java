@@ -24,6 +24,7 @@ import android.arch.persistence.room.Query;
 import java.util.List;
 
 import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
+import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 @Dao
 public interface UserDao {
@@ -45,13 +46,13 @@ public interface UserDao {
     @Query("delete from user where name like :badName OR lastName like :badName")
     int deleteUsersByName(String badName);
 
-    @Insert(onConflict = IGNORE)
+    @Insert(onConflict = REPLACE)
     void insertOrReplaceUsers(User... users);
 
     @Delete
     void deleteUsers(User user1, User user2);
 
-    @Query("SELECT * FROM User WHERE :age == :age") // TODO: Fix this!
+    @Query("SELECT * FROM User WHERE age < :age")
     List<User> findUsersYoungerThan(int age);
 
     @Query("SELECT * FROM User WHERE age < :age")

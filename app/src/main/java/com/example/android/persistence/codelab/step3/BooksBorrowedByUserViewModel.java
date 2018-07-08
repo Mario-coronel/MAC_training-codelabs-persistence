@@ -24,6 +24,8 @@ import com.example.android.persistence.codelab.db.AppDatabase;
 import com.example.android.persistence.codelab.db.Book;
 import com.example.android.persistence.codelab.db.utils.DatabaseInitializer;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -37,8 +39,10 @@ public class BooksBorrowedByUserViewModel extends AndroidViewModel {
         super(application);
         createDb();
 
-        // TODO: Assign books to the 'findBooksBorrowedByName' query.
-        books = null;
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1);
+        Date yesterday = calendar.getTime();
+        books = mDb.bookModel().findBooksBorrowedByNameAfter("Mike", yesterday);
     }
 
     public void createDb() {

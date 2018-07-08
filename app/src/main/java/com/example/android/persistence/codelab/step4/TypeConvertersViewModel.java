@@ -54,7 +54,7 @@ public class TypeConvertersViewModel extends AndroidViewModel {
 
     private void subscribeToDbChanges() {
         // Books is a LiveData object so updates are observed.
-        // TODO: replace this with a query that finds books borrowed by Mike in the last 24h
+        //  TODO: replace this with a query that finds books borrowed by Mike in the last 24h
         mBooks = mDb.bookModel().findBooksBorrowedByName("Mike");
     }
 }
